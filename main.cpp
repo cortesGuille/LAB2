@@ -1,6 +1,8 @@
 #include <iostream>
 #include <limits>
 #include <vector>
+#include <cstring> 
+
 using namespace std;
 
 const int FILAS = 6;
@@ -16,6 +18,18 @@ int valor;
 vector<Nodo*>hijos;
 };
 
+void realizarMovimiento(int tablero[FILAS][COLUMNAS], int columna, int jugador) {
+    // Encuentra la primera fila vacía en la columna
+    int fila = FILAS - 1;
+    while (fila >= 0 && tablero[fila][columna] != 0) {
+        fila--;
+    }
+
+    // Coloca la ficha del jugador en la fila encontrada
+    if (fila >= 0) {
+        tablero[fila][columna] = jugador;
+    }
+}
 
 int minimax(Nodo* nodo, int profundidad,bool esMaximo, int alpha, int beta){
 if(profundidad==0 || esTerminal(nodo->tablero)){
@@ -154,7 +168,7 @@ int obtenerMejorMovimientoIA(int tablero[FILAS][COLUMNAS], int profundidad, Nodo
     for (int i = 0; i < numMovimientos; ++i) {
         int nuevaColumna = movimientosValidos[i];
         int nuevoTablero[FILAS][COLUMNAS];
-        std::memcpy(nuevoTablero, tablero, sizeof(tablero));
+        memcpy(nuevoTablero, tablero, sizeof(tablero));
         realizarMovimiento(nuevoTablero, nuevaColumna, JUGADOR_MAX);
 
         // Busca el nodo hijo correspondiente a la columna actual
@@ -178,6 +192,7 @@ int obtenerMejorMovimientoIA(int tablero[FILAS][COLUMNAS], int profundidad, Nodo
 
     return mejorMovimiento;
 }
+
 
     
 int main(){
