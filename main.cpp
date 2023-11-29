@@ -15,7 +15,6 @@ const int INF = 1000000000;
 
 //Estructura para el Nodo y poder realizar el arbol
 struct Nodo{
-
 int tablero[FILAS][COLUMNAS];
 int columna;
 int valor;
