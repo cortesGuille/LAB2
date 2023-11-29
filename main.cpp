@@ -12,14 +12,11 @@ bool verificarTablero(int tablero[FILAS][COLUMNAS]);
 void cargarPartida(const string& nombreArchivo, int matriz[FILAS][COLUMNAS]);
 void guardarPartida(string nombreArchivo, int tablero[FILAS][COLUMNAS]);
 
-
-
-
 int main(){
 //Se crean tableros aqui para mejor manejo a la hora de usar el archivo "partida.txt"
     int tablero[FILAS][COLUMNAS] = {0}; // Inicializa el tablero según tu juego
     int tableroGuardado[FILAS][COLUMNAS] = {0}; //Tablero auxiliar para guardar la partida
-    int profundidadMaxima; // Profundidad máxima del árbol
+    int profundidadMaxima; // Profundidad máxima del árbol para poder brindar mas exactitud a la respuesta de la IA
     conect4 conect4;// Se crea el objeto conect4
     int op;
     //VERIFICAR SI EXITE PARTIDA GUARDADA OSEA QUE EL TABLERO NO ESTE LLENO DE 0
@@ -54,16 +51,17 @@ int main(){
 
         switch (op) {
             case 1:
-                profundidadMaxima = 3;
+                profundidadMaxima = 2;
                 finBucle = true;
                 break;
             case 2:
-                profundidadMaxima = 5;
+                profundidadMaxima = 4;
                 finBucle= true;
                 break;
             case 3:
-                profundidadMaxima = 7;
+                profundidadMaxima = 8;
                 finBucle = true;
+
                 break;
             default:
                 cout << "Numero no valido" << endl;
