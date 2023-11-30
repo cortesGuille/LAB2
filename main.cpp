@@ -101,7 +101,7 @@ int main(){
         }
     }
     }
-
+cout<<"Programa Cerrado"<<endl;
 return 0;
 }
 //VEIRIFCA SI EL TABLERO ESTA LLENO DE 0
