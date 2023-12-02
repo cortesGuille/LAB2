@@ -3,8 +3,6 @@
 #include <vector>
 
 // Constantes para facilitar la escritura
-const int FILAS = 6;
-const int COLUMNAS = 7;
 const int JUGADOR_MAX = 1;
 const int JUGADOR_MIN = 2;
 const int INF = 1000000000;
@@ -28,9 +26,9 @@ private:
 public:
 conect4(){
     }
-bool hayGanadorEnFilas(int tablero[FILAS][COLUMNAS]) {
-    for (int fila = 0; fila < FILAS; ++fila) {
-        for (int columna = 0; columna <= COLUMNAS - 4; ++columna) {
+bool hayGanadorEnFilas(int tablero[6][7]) {
+    for (int fila = 0; fila < 6; ++fila) {
+        for (int columna = 0; columna <= 7 - 4; ++columna) {
             // Verificar si hay cuatro fichas consecutivas en una fila
             if (tablero[fila][columna] != 0 &&
                 tablero[fila][columna] == tablero[fila][columna + 1] &&
@@ -43,9 +41,9 @@ bool hayGanadorEnFilas(int tablero[FILAS][COLUMNAS]) {
     return false;  // No hay ganador en filas
 }
 
-bool hayGanadorEnColumnas(int tablero[FILAS][COLUMNAS]) {
-    for (int columna = 0; columna < COLUMNAS; ++columna) {
-        for (int fila = 0; fila <= FILAS - 4; ++fila) {
+bool hayGanadorEnColumnas(int tablero[6][7]) {
+    for (int columna = 0; columna < 7; ++columna) {
+        for (int fila = 0; fila <= 6 - 4; ++fila) {
             // Verificar si hay cuatro fichas consecutivas en una columna
             if (tablero[fila][columna] != 0 &&
                 tablero[fila][columna] == tablero[fila + 1][columna] &&
@@ -58,10 +56,10 @@ bool hayGanadorEnColumnas(int tablero[FILAS][COLUMNAS]) {
     return false;  // No hay ganador en columnas
 }
 
-bool hayGanadorEnDiagonales(int tablero[FILAS][COLUMNAS]) {
+bool hayGanadorEnDiagonales(int tablero[6][7]) {
     // Verificar diagonales ascendentes
-    for (int fila = 3; fila < FILAS; ++fila) {
-        for (int columna = 0; columna <= COLUMNAS - 4; ++columna) {
+    for (int fila = 3; fila < 6; ++fila) {
+        for (int columna = 0; columna <= 7 - 4; ++columna) {
             // Verificar si hay cuatro fichas consecutivas en una diagonal ascendente
             if (tablero[fila][columna] != 0 &&
                 tablero[fila][columna] == tablero[fila - 1][columna + 1] &&
@@ -73,8 +71,8 @@ bool hayGanadorEnDiagonales(int tablero[FILAS][COLUMNAS]) {
     }
 
     // Verificar diagonales descendentes
-    for (int fila = 3; fila < FILAS; ++fila) {
-        for (int columna = 3; columna < COLUMNAS; ++columna) {
+    for (int fila = 3; fila < 6; ++fila) {
+        for (int columna = 3; columna < 7; ++columna) {
             // Verificar si hay cuatro fichas consecutivas en una diagonal descendente
             if (tablero[fila][columna] != 0 &&
                 tablero[fila][columna] == tablero[fila - 1][columna - 1] &&
@@ -88,27 +86,27 @@ bool hayGanadorEnDiagonales(int tablero[FILAS][COLUMNAS]) {
     return false;  // No hay ganador en diagonales
 }
 
-bool movimientoValido(int tablero[FILAS][COLUMNAS], int columna) {
+bool movimientoValido(int tablero[6][7], int columna) {
     // Verificar límites de la columna
-    if (columna < 0 || columna >= COLUMNAS) {
+    if (columna < 0 || columna >= 7) {
         return false;
     }
 
     // Verificar si hay una fila disponible en la columna
-    for (int fila = FILAS - 1; fila >= 0; --fila) {
+    for (int fila = 6 - 1; fila >= 0; --fila) {
         if (tablero[fila][columna] == 0) {
-            // Casilla vacía, el movimiento es válido
+            
             return true;
         }
     }
 
-    // Si la columna está llena, el movimiento no es válido
+    
     return false;
 }
 
-void realizarMovimiento(int tablero[FILAS][COLUMNAS], int columna, int jugador) {
+void realizarMovimiento(int tablero[6][7], int columna, int jugador) {
     // Encuentra la primera fila vacía en la columna
-    int fila = FILAS - 1;
+    int fila = 6 - 1;
     while (fila >= 0 && tablero[fila][columna] != 0) {
         fila--;
     }
@@ -119,15 +117,15 @@ void realizarMovimiento(int tablero[FILAS][COLUMNAS], int columna, int jugador) 
     }
 }
 
-bool esTerminal(int tablero[FILAS][COLUMNAS]) {
+bool esTerminal(int tablero[6][7]) {
     // Verificar si hay un ganador en filas, columnas o diagonales
     if (hayGanadorEnFilas(tablero) || hayGanadorEnColumnas(tablero) || hayGanadorEnDiagonales(tablero)) {
         return true;  // Hay un ganador, el nodo es terminal
     }
 
     // Verificar si el tablero está lleno (empate)
-    for (int fila = 0; fila < FILAS; ++fila) {
-        for (int columna = 0; columna < COLUMNAS; ++columna) {
+    for (int fila = 0; fila < 6; ++fila) {
+        for (int columna = 0; columna < 7; ++columna) {
             if (tablero[fila][columna] == 0) {
                 return false;  // Todavía hay al menos una casilla vacía, el juego no ha terminado
             }
@@ -168,16 +166,16 @@ return minEv;
 
 }
 
-Nodo* construirArbol(int tablero[FILAS][COLUMNAS], int profundidad, int jugador, int columna) {
+Nodo* construirArbol(int tablero[6][7], int profundidad, int jugador, int columna) {
     Nodo* nodo = new Nodo();
     copyBoard(tablero, nodo->tablero);
     nodo->columna = columna;
     nodo->valor = 0;
 
     if (profundidad > 0 && !esTerminal(tablero)) {
-        for (int i = 0; i < COLUMNAS; ++i) {
+        for (int i = 0; i < 7; ++i) {
             if (movimientoValido(tablero, i)) {
-                int nuevoTablero[FILAS][COLUMNAS];
+                int nuevoTablero[6][7];
                 copyBoard(tablero, nuevoTablero);
                 realizarMovimiento(nuevoTablero, i, jugador);
 
@@ -190,33 +188,33 @@ Nodo* construirArbol(int tablero[FILAS][COLUMNAS], int profundidad, int jugador,
     return nodo;
 }
 
-int evaluarTablero(int tablero[FILAS][COLUMNAS]) {
+int evaluarTablero(int tablero[6][7]) {
 
 
     int puntaje = 0;
     // Evaluar las filas
-    for (int i = 0; i < FILAS; ++i) {
-        for (int j = 0; j < COLUMNAS - 3; ++j) {
+    for (int i = 0; i < 6; ++i) {
+        for (int j = 0; j < 7 - 3; ++j) {
             puntaje += evaluarPosicion(tablero[i][j], tablero[i][j + 1], tablero[i][j + 2], tablero[i][j + 3]);
         }
     }
     // Evaluar las columnas
-    for (int i = 0; i < FILAS - 3; ++i) {
-        for (int j = 0; j < COLUMNAS; ++j) {
+    for (int i = 0; i < 6 - 3; ++i) {
+        for (int j = 0; j < 7; ++j) {
             puntaje += evaluarPosicion(tablero[i][j], tablero[i + 1][j], tablero[i + 2][j], tablero[i + 3][j]);
         }
     }
 
     // Evaluar diagonales ascendentes
-    for (int i = 3; i < FILAS; ++i) {
-        for (int j = 0; j < COLUMNAS - 3; ++j) {
+    for (int i = 3; i < 6; ++i) {
+        for (int j = 0; j < 7 - 3; ++j) {
             puntaje += evaluarPosicion(tablero[i][j], tablero[i - 1][j + 1], tablero[i - 2][j + 2], tablero[i - 3][j + 3]);
         }
     }
 
     // Evaluar diagonales descendentes
-    for (int i = 3; i < FILAS; ++i) {
-        for (int j = 3; j < COLUMNAS; ++j) {
+    for (int i = 3; i < 6; ++i) {
+        for (int j = 3; j < 7; ++j) {
             puntaje += evaluarPosicion(tablero[i][j], tablero[i - 1][j - 1], tablero[i - 2][j - 2], tablero[i - 3][j - 3]);
         }
     }
@@ -256,11 +254,11 @@ int evaluarPosicion(int c1, int c2, int c3, int c4) {
     return puntaje;
 }
 
-int obtenerMejorMovimientoIA(int tablero[FILAS][COLUMNAS], int profundidad, Nodo* raiz) {
-    int movimientosValidos[COLUMNAS];
+int obtenerMejorMovimientoIA(int tablero[6][7], int profundidad, Nodo* raiz) {
+    int movimientosValidos[7];
     int numMovimientos = 0;
 
-    for (int i = 0; i < COLUMNAS; ++i) {
+    for (int i = 0; i < 7; ++i) {
         if (movimientoValido(tablero, i)) {
             movimientosValidos[numMovimientos++] = i;
         }
@@ -271,7 +269,7 @@ int obtenerMejorMovimientoIA(int tablero[FILAS][COLUMNAS], int profundidad, Nodo
 
     for (int i = 0; i < numMovimientos; ++i) {
         int nuevaColumna = movimientosValidos[i];
-        int nuevoTablero[FILAS][COLUMNAS];
+        int nuevoTablero[6][7];
         copyBoard(tablero, nuevoTablero);
         realizarMovimiento(nuevoTablero, nuevaColumna, JUGADOR_MAX);
 
@@ -297,24 +295,24 @@ int obtenerMejorMovimientoIA(int tablero[FILAS][COLUMNAS], int profundidad, Nodo
     return mejorMovimiento;
 }
 
-void copyBoard(int tablero[FILAS][COLUMNAS], int nuevoTablero[FILAS][COLUMNAS]){
-    for (int i = 0; i < FILAS; ++i) {
-        for (int j = 0; j < COLUMNAS; ++j) {
+void copyBoard(int tablero[6][7], int nuevoTablero[6][7]){
+    for (int i = 0; i < 6; ++i) {
+        for (int j = 0; j < 7; ++j) {
             nuevoTablero[i][j] = tablero[i][j];
         }
     }
 }
 
-void imprimirTablero(int tablero[FILAS][COLUMNAS]){
+void imprimirTablero(int tablero[6][7]){
 
-    for (int i = 0; i < FILAS; ++i) {
-        for (int j = 0; j < COLUMNAS; ++j) {
+    for (int i = 0; i < 6; ++i) {
+        for (int j = 0; j < 7; ++j) {
             cout << tablero[i][j] << " ";
         }
         cout << endl;
     }
 }
-void movimientoIA(int tablero[FILAS][COLUMNAS],int profundidadMaxima,int columnaJugador) {
+void movimientoIA(int tablero[6][7],int profundidadMaxima,int columnaJugador) {
     Nodo* raiz = construirArbol(tablero, profundidadMaxima, JUGADOR_MIN, columnaJugador);
     int columnaIA = obtenerMejorMovimientoIA(tablero, profundidadMaxima,raiz);
     realizarMovimiento(tablero, columnaIA, JUGADOR_MIN);

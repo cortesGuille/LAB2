@@ -8,14 +8,14 @@
 
 using namespace std;
 
-bool verificarTablero(int tablero[FILAS][COLUMNAS]);
-void cargarPartida(const string& nombreArchivo, int matriz[FILAS][COLUMNAS]);
-void guardarPartida(string nombreArchivo, int tablero[FILAS][COLUMNAS]);
+bool verificarTablero(int tablero[6][7]);
+void cargarPartida(const string& nombreArchivo, int matriz[6][7]);
+void guardarPartida(string nombreArchivo, int tablero[6][7]);
 
 int main(){
 //Se crean tableros aqui para mejor manejo a la hora de usar el archivo "partida.txt"
-    int tablero[FILAS][COLUMNAS] = {0}; // Inicializa el tablero según tu juego
-    int tableroGuardado[FILAS][COLUMNAS] = {0}; //Tablero auxiliar para guardar la partida
+    int tablero[6][7] = {0}; // Inicializa el tablero según tu juego
+    int tableroGuardado[6][7] = {0}; //Tablero auxiliar para guardar la partida
     int profundidadMaxima; // Profundidad máxima del árbol para poder brindar mas exactitud a la respuesta de la IA
     conect4 conect4;// Se crea el objeto conect4
     int op;
@@ -105,9 +105,9 @@ cout<<"Programa Cerrado"<<endl;
 return 0;
 }
 //VEIRIFCA SI EL TABLERO ESTA LLENO DE 0
-bool verificarTablero(int tablero[FILAS][COLUMNAS]) {
-    for (int i = 0; i < FILAS; ++i) {
-        for (int j = 0; j < COLUMNAS; ++j) {
+bool verificarTablero(int tablero[6][7]) {
+    for (int i = 0; i < 6; ++i) {
+        for (int j = 0; j < 7; ++j) {
             if (tablero[i][j] != 0) {
                 return true;
             }
@@ -117,7 +117,7 @@ bool verificarTablero(int tablero[FILAS][COLUMNAS]) {
     return false;
 }    
 //CARGA EL ARCHIVO CON LA PARTIDA GUARDADA en el txt
-void cargarPartida(const std::string& nombreArchivo, int matriz[FILAS][COLUMNAS]) {
+void cargarPartida(const std::string& nombreArchivo, int matriz[6][7]) {
     ifstream archivo(nombreArchivo);
 
     // Verifica si el archivo se abrió correctamente
@@ -131,13 +131,13 @@ void cargarPartida(const std::string& nombreArchivo, int matriz[FILAS][COLUMNAS]
     // Lee cada línea del archivo
     string linea;
     
-    while (getline(archivo, linea) && filas < FILAS) {
+    while (getline(archivo, linea) && filas < 6) {
         stringstream ss(linea);
         string elemento;
         int columnas = 0;
 
         // Divide la línea en elementos usando la coma como delimitador
-        while (getline(ss, elemento, ',') && columnas < COLUMNAS) {
+        while (getline(ss, elemento, ',') && columnas < 7) {
             // Convierte cada elemento a entero y lo asigna a la matriz
             matriz[filas][columnas] = stoi(elemento);
             ++columnas;
@@ -150,13 +150,13 @@ void cargarPartida(const std::string& nombreArchivo, int matriz[FILAS][COLUMNAS]
 
     archivo.close();
 }
-void guardarPartida(string nombreArchivo, int tablero[FILAS][COLUMNAS]) {
+void guardarPartida(string nombreArchivo, int tablero[6][7]) {
     ofstream archivo(nombreArchivo);
     if(archivo.is_open()){
-        for (int i = 0; i < FILAS; ++i) {
-            for (int j = 0; j < COLUMNAS; ++j) {
+        for (int i = 0; i < 6; ++i) {
+            for (int j = 0; j < 7; ++j) {
                 archivo << tablero[i][j];
-                if(j<COLUMNAS-1){
+                if(j<7-1){
                     archivo <<",";
                 }
             }
