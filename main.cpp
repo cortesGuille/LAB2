@@ -128,7 +128,7 @@ void cargarPartida(const std::string& nombreArchivo, int matriz[6][7]) {
 
     int filas = 0;
 
-    // Lee cada línea del archivo
+   
     string linea;
     
     while (getline(archivo, linea) && filas < 6) {
@@ -146,7 +146,7 @@ void cargarPartida(const std::string& nombreArchivo, int matriz[6][7]) {
         ++filas;
     }
 
-    // Cierra el archivo
+    
 
     archivo.close();
 }

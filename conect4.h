@@ -34,11 +34,11 @@ bool hayGanadorEnFilas(int tablero[6][7]) {
                 tablero[fila][columna] == tablero[fila][columna + 1] &&
                 tablero[fila][columna] == tablero[fila][columna + 2] &&
                 tablero[fila][columna] == tablero[fila][columna + 3]) {
-                return true;  // Hay un ganador en esta fila
+                return true;  
             }
         }
     }
-    return false;  // No hay ganador en filas
+    return false;  
 }
 
 bool hayGanadorEnColumnas(int tablero[6][7]) {
@@ -53,7 +53,7 @@ bool hayGanadorEnColumnas(int tablero[6][7]) {
             }
         }
     }
-    return false;  // No hay ganador en columnas
+    return false;  
 }
 
 bool hayGanadorEnDiagonales(int tablero[6][7]) {
@@ -65,7 +65,7 @@ bool hayGanadorEnDiagonales(int tablero[6][7]) {
                 tablero[fila][columna] == tablero[fila - 1][columna + 1] &&
                 tablero[fila][columna] == tablero[fila - 2][columna + 2] &&
                 tablero[fila][columna] == tablero[fila - 3][columna + 3]) {
-                return true;  // Hay un ganador en esta diagonal ascendente
+                return true;  
             }
         }
     }
@@ -78,12 +78,12 @@ bool hayGanadorEnDiagonales(int tablero[6][7]) {
                 tablero[fila][columna] == tablero[fila - 1][columna - 1] &&
                 tablero[fila][columna] == tablero[fila - 2][columna - 2] &&
                 tablero[fila][columna] == tablero[fila - 3][columna - 3]) {
-                return true;  // Hay un ganador en esta diagonal descendente
+                return true; 
             }
         }
     }
 
-    return false;  // No hay ganador en diagonales
+    return false; 
 }
 
 bool movimientoValido(int tablero[6][7], int columna) {
@@ -120,7 +120,7 @@ void realizarMovimiento(int tablero[6][7], int columna, int jugador) {
 bool esTerminal(int tablero[6][7]) {
     // Verificar si hay un ganador en filas, columnas o diagonales
     if (hayGanadorEnFilas(tablero) || hayGanadorEnColumnas(tablero) || hayGanadorEnDiagonales(tablero)) {
-        return true;  // Hay un ganador, el nodo es terminal
+        return true;  
     }
 
     // Verificar si el tablero está lleno (empate)
@@ -228,27 +228,27 @@ int evaluarPosicion(int c1, int c2, int c3, int c4) {
 
     // Puntajes arbitrarios, ajusta según tu estrategia de evaluación
     if (c1 == JUGADOR_MAX) {
-        puntaje = 1;
+        puntaje = 5;
     } else if (c1 == JUGADOR_MIN) {
-        puntaje = -1;
+        puntaje = -5;
     }
 
     if (c2 == JUGADOR_MAX) {
-        puntaje *= 10;
+        puntaje *= 50;
     } else if (c2 == JUGADOR_MIN) {
-        puntaje *= -10;
+        puntaje *= -50;
     }
 
     if (c3 == JUGADOR_MAX) {
-        puntaje *= 100;
+        puntaje *= 150;
     } else if (c3 == JUGADOR_MIN) {
-        puntaje *= -100;
+        puntaje *= -150;
     }
 
     if (c4 == JUGADOR_MAX) {
-        puntaje *= 1000;
+        puntaje *= 5000;
     } else if (c4 == JUGADOR_MIN) {
-        puntaje *= -1000;
+        puntaje *= -5000;
     }
 
     return puntaje;
